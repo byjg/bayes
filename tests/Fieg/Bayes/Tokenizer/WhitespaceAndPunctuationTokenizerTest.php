@@ -1,6 +1,10 @@
 <?php
 
-class WhitespaceAndPunctuationTokenizerTest extends \PHPUnit_Framework_TestCase
+if (!class_exists('\PHPUnit\Framework\TestCase')) {
+    class_alias('\PHPUnit_Framework_TestCase', '\PHPUnit\Framework\TestCase');
+}
+
+class WhitespaceAndPunctuationTokenizerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider tokenizeDataProvider
@@ -19,9 +23,60 @@ class WhitespaceAndPunctuationTokenizerTest extends \PHPUnit_Framework_TestCase
     public function tokenizeDataProvider()
     {
         return array(
-            array('Hello, how are you?', array('hello', 'how', 'are', 'you')),
-            array("Hello\n\nHow are you?!", array('hello', 'how', 'are', 'you')),
-            array("Un importante punto de inflexión en la historia de la ciencia filosófica primitiva", array('un','importante','punto','de','inflexión','en','la','historia','de','la','ciencia','filosófica','primitiva')),
+            array(
+                'This is an example of good choices',
+                array(
+                    'this',
+                    'is',
+                    'an',
+                    'example',
+                    'of',
+                    'good',
+                    'choices'
+                )
+            ),
+            array(
+                "This \nis an example \r\nof good \rchoices",
+                array(
+                    'this',
+                    'is',
+                    'an',
+                    'example',
+                    'of',
+                    'good',
+                    'choices'
+                )
+            ),
+            array(
+                "; Comment Should be ignored.\nThis is an example of good choices",
+                array(
+                    'this',
+                    'is',
+                    'an',
+                    'example',
+                    'of',
+                    'good',
+                    'choices'
+                )
+            ),
+            array(
+                "Un importante punto de inflexión en la historia de la ciencia filosófica primitiva",
+                array(
+                    'un',
+                    'importante',
+                    'punto',
+                    'de',
+                    'inflexión',
+                    'en',
+                    'la',
+                    'historia',
+                    'de',
+                    'la',
+                    'ciencia',
+                    'filosófica',
+                    'primitiva'
+                )
+            ),
         );
     }
 }
