@@ -23,13 +23,25 @@ class ClassifierTest extends \PHPUnit\Framework\TestCase
             $classifier->train($label, $text);
         }
 
+        // Check with training
         $result = $classifier->classify($string);
-
         reset($result);
-
         $topMatch = key($result);
-
         $this->assertEquals($expectedLabel, $topMatch);
+
+        // Save Data
+        $classifier->save(sys_get_temp_dir() . "/data.def");
+
+        // Create a new Classifier with training; Expected the same result;
+        $classifier2 = new Classifier(new WhitespaceAndPunctuationTokenizer());
+        $classifier2->load(sys_get_temp_dir() . "/data.def");
+        $result = $classifier2->classify($string);
+        reset($result);
+        $topMatch = key($result);
+        $this->assertEquals($expectedLabel, $topMatch);
+
+        // Clear
+        unlink(sys_get_temp_dir() . "/data.def");
     }
 
     public function classifyDataProvider()

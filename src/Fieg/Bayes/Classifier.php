@@ -178,4 +178,37 @@ class Classifier
 
         return array_sum($data);
     }
+
+    public function save($file)
+    {
+        $data = array(
+            "version" => "1.0",
+            "labels" => $this->labels,
+            "docs" => $this->docs,
+            "tokens" => $this->tokens,
+            "data" => $this->data
+        );
+
+        file_put_contents($file, serialize($data));
+    }
+
+    public function load($file)
+    {
+        if (!file_exists($file)) {
+            return false;
+        }
+
+        $data = unserialize(file_get_contents($file));
+
+        if (!isset($data["version"]) || $data["version"] != "1.0") {
+            throw new \Exception('Wrong version');
+        }
+
+        $this->labels = $data["labels"];
+        $this->docs = $data["docs"];
+        $this->tokens = $data["tokens"];
+        $this->data = $data['data'];
+
+        return true;
+    }
 }
