@@ -80,6 +80,22 @@ class Classifier
     }
 
     /**
+     * @param $label
+     * @param $document
+     */
+    public function trainDocument($label, $document)
+    {
+        $lines = explode("\n", $document);
+        foreach ($lines as $line) {
+            $line = trim(str_replace("\r", "", $line));
+            if (empty($line) || strpos($line, ";") === 0) {
+                continue;
+            }
+            $this->train($label, $line);
+        }
+    }
+
+    /**
      * Classifies a text and returns the probability (score) per label
      *
      * @param  string $text
