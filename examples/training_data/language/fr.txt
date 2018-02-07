@@ -1,3 +1,4 @@
+; FRENCH SAMPLE
 Où est la boulangerie?
 Je voudrais une boîte de chocolates.
 Y a-t-il un autre hôtel près d'ici?

@@ -8,14 +8,14 @@ use Fieg\Bayes\Tokenizer\WhitespaceAndPunctuationTokenizer;
 $tokenizer = new WhitespaceAndPunctuationTokenizer();
 $classifier = new Classifier($tokenizer);
 
-$classifier->trainDocument('english', file_get_contents('training_data/language/en.txt'));
-$classifier->trainDocument('french', file_get_contents('training_data/language/fr.txt'));
-$classifier->trainDocument('italy', file_get_contents('training_data/language/it.txt'));
+$classifier->train('english', file_get_contents('training_data/language/en.txt'));
+$classifier->train('french', file_get_contents('training_data/language/fr.txt'));
+$classifier->train('italy', file_get_contents('training_data/language/it.txt'));
 
 // $classifier->train('en', 'This is english');
 // $classifier->train('fr', 'Je suis Hollandais');
 
-$result = $classifier->classify('le texte que nous voulons classer.');
+$result = $classifier->classify('il testo che vogliamo classificare.');
 print_r($result);
 $result = $classifier->classify('This is english');
 print_r($result);

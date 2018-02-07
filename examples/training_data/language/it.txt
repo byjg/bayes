@@ -1,3 +1,4 @@
+; ITALIAN SAMPLE
 Ciao, ti va di andare al cinema?
 Mi sai dire quando aprono il negozio?
 Quando c'è l'ultimo autobus?

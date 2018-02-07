@@ -15,6 +15,8 @@ class WhitespaceAndPunctuationTokenizer implements TokenizerInterface
 
     public function tokenize($string)
     {
+        $string = implode("\n", preg_replace("/^;.*$/", "", explode("\n", $string)));
+
         $retval = preg_split($this->pattern, mb_strtolower($string, 'utf8'));
         $retval = array_filter($retval, 'trim');
         $retval = array_values($retval);

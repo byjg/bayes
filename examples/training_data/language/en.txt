@@ -1,3 +1,4 @@
+; ENGLISH SAMPLE
 Hello, do you know what time the movie is tonight?
 I am calling to make reservations
 I would like to know if it is at all possible to check in
