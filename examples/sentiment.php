@@ -8,6 +8,7 @@ use Fieg\Bayes\Tokenizer\WhitespaceAndPunctuationTokenizer;
 $tokenizer = new WhitespaceAndPunctuationTokenizer();
 $classifier = new Classifier($tokenizer);
 
+$classifier->addStopWordFromDocument(file_get_contents("stop_words/english.txt"));
 $classifier->trainDocument('negative', file_get_contents('training_data/sentiment/negative-words.txt'));
 $classifier->trainDocument('positive', file_get_contents('training_data/sentiment/positive-words.txt'));
 

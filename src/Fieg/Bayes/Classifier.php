@@ -38,6 +38,11 @@ class Classifier
     protected $data = array();
 
     /**
+     * @var array
+     */
+    protected $stopWords = array();
+
+    /**
      * Constructor.
      *
      * @param TokenizerInterface $tokenizer
@@ -56,6 +61,7 @@ class Classifier
     public function train($label, $text)
     {
         $tokens = $this->tokenizer->tokenize($text);
+        $tokens = array_diff($tokens, array_values($this->stopWords));
 
         if (!isset($this->labels[$label])) {
             $this->labels[$label] = 0;
@@ -95,6 +101,26 @@ class Classifier
         }
     }
 
+    public function addStopWord($word)
+    {
+        $wordList = $this->tokenizer->tokenize($word);
+        foreach ($wordList as $wordItem) {
+            $this->stopWords[$wordItem] = 1;
+        }
+    }
+
+    public function addStopWordFromDocument($document)
+    {
+        $lines = explode("\n", $document);
+        foreach ($lines as $line) {
+            $line = trim(str_replace("\r", "", $line));
+            if (empty($line) || strpos($line, ";") === 0) {
+                continue;
+            }
+            $this->addStopWord($line);
+        }
+    }
+
     /**
      * Classifies a text and returns the probability (score) per label
      *
@@ -106,6 +132,7 @@ class Classifier
         $totalDocCount = array_sum($this->docs);
 
         $tokens = $this->tokenizer->tokenize($text);
+        $tokens = array_diff($tokens, array_keys($this->stopWords));
 
         $scores = array();
 
@@ -162,6 +189,7 @@ class Classifier
         $this->docs = array();
         $this->tokens = array();
         $this->data = array();
+        $this->stopWords = array();
     }
 
     /**

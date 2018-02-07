@@ -1,6 +1,6 @@
 <?php
 
-require "vendor/autoload.php";
+require "../vendor/autoload.php";
 
 use Fieg\Bayes\Classifier;
 use Fieg\Bayes\Tokenizer\WhitespaceAndPunctuationTokenizer;
