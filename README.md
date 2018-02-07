@@ -11,6 +11,7 @@ Getting started
 ---------------
 
 ```php
+<?php
 use Fieg\Bayes\Classifier;
 use Fieg\Bayes\Tokenizer\WhitespaceAndPunctuationTokenizer;
 
@@ -33,3 +34,7 @@ array(2) {
   double(0.1)
 }
 ```
+
+## Some Theory
+
+http://sebastianraschka.com/Articles/2014_naive_bayes_1.html
